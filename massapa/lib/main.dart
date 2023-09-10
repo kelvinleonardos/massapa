@@ -1,43 +1,40 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 void main() {
-  runApp(const SplashScreen());
+  runApp(const MyApp());
 }
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
-
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    // Timer to navigate to MyApp2 after 3 seconds
-    Timer(const Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const MyApp2(),
-        ),
-      );
-    });
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Colors.yellow,
-        body: Center(
-          child: SizedBox(
-            width: 300,
-            height: 300,
-            child: Image.asset("images/logo.png"), // Use Image.asset to load image assets
-          ),
+      home: Splash(),
+    );
+  }
+}
+
+class Splash extends StatelessWidget {
+  const Splash({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // Menunggu 3 detik sebelum berpindah ke MyApp2
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const MyApp2()),
+      );
+    });
+
+    return Scaffold(
+      backgroundColor: Colors.yellow,
+      body: Center(
+        child: SizedBox(
+          width: 300,
+          height: 300,
+          child: Image.asset("images/logo.png"), // Gunakan Image.asset untuk memuat aset gambar
         ),
       ),
     );
@@ -57,11 +54,10 @@ class MyApp2 extends StatelessWidget {
           child: SizedBox(
             width: 300,
             height: 300,
-            child: Image.asset("images/unhas.png"), // Use Image.asset to load image assets
+            child: Image.asset("images/unhas.png"), // Gunakan Image.asset untuk memuat aset gambar
           ),
         ),
       ),
     );
   }
 }
- 
